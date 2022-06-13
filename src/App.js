@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import React ,{useReducer} from "react";
 import './App.css';
+import { Route, Routes } from "react-router";
+import "./App.css";
+
+import Navbar from "./component/Navbar";
+import Status from "./Pages/Status";
+import Login from "./Pages/Login";
+import Home from "./Pages/Home";
+import RequireAuth from "./hoc/RequireAuth";
+import { Switch } from '@chakra-ui/react'
+
+
+
 
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/status"
+          element={
+            <RequireAuth>
+              <Status />
+            </RequireAuth>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+
+      <Switch onChange={({Boolean})=> console.log(Boolean.State)} />
+ </div>
   );
 }
 
